@@ -1,96 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>About Me</title>
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: black;
-        color: white;
-        text-align: center;
-    }
-    /* Banner */
-    .banner {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-        display: block;
-    }
-    /* Profile Picture */
-    .profile-pic {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        border: 4px solid white;
-        object-fit: cover;
-        margin-top: -60px;
-        background-color: black;
-    }
-    h1 {
-        font-size: 1.8em;
-        margin: 10px 0 5px;
-    }
-    p {
-        font-size: 1em;
-        max-width: 500px;
-        margin: auto;
-        font-style: italic;
-        padding: 0 10px;
-    }
-    /* Links with icons */
-    .links {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
-    .links a {
-        display: inline-block;
-        width: 50px;
-        height: 50px;
-    }
-    .links svg, .links img {
-        width: 100%;
-        height: 100%;
-        filter: drop-shadow(0 0 5px white);
-        transition: transform 0.2s ease;
-    }
-    .links svg:hover, .links img:hover {
-        transform: scale(1.1);
-    }
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Me</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        /* Banner image */
+        .banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Profile picture */
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin-top: -75px;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Roblox logo */
+        .roblox-logo {
+            width: 80px;
+            height: 80px;
+            margin: 20px auto;
+        }
+
+        /* Social links */
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .socials a img {
+            width: 40px;
+            height: 40px;
+            display: block;
+        }
+
+        h1 {
+            margin-top: 10px;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
 
-<!-- Banner -->
-<img class="banner" src="<a href="https://ibb.co/vvmHHdVp"><img src="https://i.ibb.co/vvmHHdVp/22789f623ea02b1a237a695be7bc0c81.jpg" alt="22789f623ea02b1a237a695be7bc0c81" border="0"></a>"
+    <!-- Banner -->
+    <div class="banner">
+        <img src="<a href="https://ibb.co/vvmHHdVp"><img src="https://i.ibb.co/vvmHHdVp/22789f623ea02b1a237a695be7bc0c81.jpg" alt="22789f623ea02b1a237a695be7bc0c81" border="0"></a>"
+    </div>
 
-<!-- Profile Picture -->
-<img class="profile-pic" src="<a href="https://ibb.co/VWmHtVZf"><img src="https://i.ibb.co/VWmHtVZf/84cef277baee327f503bbb277bab8386-1.png" alt="84cef277baee327f503bbb277bab8386-1" border="0"></a>"
+    <!-- Profile Picture -->
+    <div class="profile-pic">
+        <img src="<a href="https://ibb.co/VWmHtVZf"><img src="https://i.ibb.co/VWmHtVZf/84cef277baee327f503bbb277bab8386-1.png" alt="84cef277baee327f503bbb277bab8386-1" border="0"></a>"  />
+    </div>
 
-<!-- Name -->
-<h1>goooddinosaur</h1>
-
-<!-- Bio -->
-<p>"Legacy. What is a Legacy? It’s planting seeds in a garden you never get to see."<br>— Alexander Hamilton</p>
-
-<!-- Social Links -->
-<div class="links">
-    <!-- TikTok -->
-    <a href="https://www.tiktok.com/@goooddinosaur" target="_blank" aria-label="TikTok" title="TikTok">
-        <svg viewBox="0 0 256 256" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M223.5 80.1a94.7 94.7 0 0 1-47.4-12.9v72.1a58.3 58.3 0 1 1-51.4-57.9v33.2a25.1 25.1 0 1 0 17.8 24V18h33.6a61.1 61.1 0 0 0 47.4 49.6z"/>
+    <!-- Roblox Logo -->
+    <div class="roblox-logo">
+        <!-- Inline SVG from your uploaded image -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <defs>
+                <radialGradient id="g" cx="50%" cy="45%" r="70%">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="60%" stop-color="#f3f3f3"/>
+                    <stop offset="100%" stop-color="#e7e7e7"/>
+                </radialGradient>
+            </defs>
+            <rect width="512" height="512" fill="none"/>
+            <g transform="translate(256 256) rotate(25)">
+                <rect x="-210" y="-210" width="420" height="420" rx="6" ry="6" fill="url(#g)"/>
+                <rect x="-70" y="-70" width="140" height="140" rx="2" ry="2" fill="#ffffff"/>
+            </g>
         </svg>
-    </a>
+    </div>
 
-    <!-- Spotify -->
-    <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" target="_blank" aria-label="Spotify" title="Spotify">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify Logo" />
-    </a>
-</div>
+    <!-- Username -->
+    <h1>goooddinosaur</h1>
+
+    <!-- Social Links -->
+    <div class="socials">
+        <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify" />
+        </a>
+        <a href="https://www.tiktok.com/@goooddinosaur" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/TikTok_logo.svg" alt="TikTok" />
+        </a>
+    </div>
 
 </body>
 </html>
