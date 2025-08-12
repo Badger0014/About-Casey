@@ -1,77 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Profile Page</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-        }
-
-        /* Banner */
-        .banner {
-            width: 100%;
-            height: 300px;
-            background: url("https://i.pinimg.com/originals/1f/3f/21/1f3f219a9776e1dbbb0c660b76f83b43.jpg") no-repeat center;
-            background-size: cover;
-        }
-
-        /* Profile picture */
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid white;
-            margin-top: -75px;
-            background: url("https://i.pinimg.com/originals/38/16/4e/38164e8f2aa3b2e3d01f4b5c939fd6d2.jpg") no-repeat center;
-            background-size: cover;
-            display: inline-block;
-        }
-
-        /* Roblox logo */
-        .roblox-logo {
-            width: 80px;
-            height: 80px;
-            transform: rotate(45deg); /* Tilt to match Roblox logo */
-            background: white;
-            border: 10px solid black;
-            box-sizing: border-box;
-            margin: 20px auto;
-            position: relative;
-        }
-        .roblox-logo::before {
-            content: "";
-            position: absolute;
-            top: 25%;
-            left: 25%;
-            width: 50%;
-            height: 50%;
-            background: white;
-        }
-
-        h1 {
-            margin-top: 10px;
-            color: #333;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roblox Profile</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 500px;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+    }
+    .banner img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    .profile-pic img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid #333;
+      object-fit: cover;
+      margin: -75px auto 10px;
+      background-color: #222;
+    }
+    .username {
+      font-size: 1.5em;
+      margin: 10px 0 20px;
+    }
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .card {
+      background-color: #222;
+      padding: 15px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #444;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      background-color: #333;
+      border-color: #666;
+    }
+    .card img {
+      max-height: 40px;
+      margin-right: 10px;
+    }
+    .card span {
+      font-size: 1.1em;
+      color: #eee;
+    }
+  </style>
 </head>
 <body>
-
-    <!-- Banner -->
-    <div class="banner"></div>
-
-    <!-- Profile Picture -->
-    <div class="profile-pic"></div>
-
-    <!-- Roblox Logo -->
-    <div class="roblox-logo"></div>
-
-    <!-- Name -->
-    <h1>Your Roblox Username</h1>
-
+  <div class="container">
+    <div class="banner">
+      <img src="https://i.pinimg.com/originals/1f/3f/21/1f3f219a9776e1dbbb0c660b76f83b43.jpg" alt="Banner">
+    </div>
+    <div class="profile-pic">
+      <img src="https://i.pinimg.com/originals/38/16/4e/38164e8f2aa3b2e3d01f4b5c939fd6d2.jpg" alt="Profile Picture">
+    </div>
+    <div class="username">
+      Your Roblox Username
+    </div>
+    <div class="cards">
+      <!-- Other logo card example -->
+      <div class="card">
+        <img src="URL_OF_OTHER_LOGO_1" alt="Logo 1">
+        <span>Other Logo 1</span>
+      </div>
+      <div class="card">
+        <img src="URL_OF_OTHER_LOGO_2" alt="Logo 2">
+        <span>Other Logo 2</span>
+      </div>
+      <!-- Shiny white Roblox logo card -->
+      <div class="card">
+        <img src="https://www.citypng.com/photo/7033/hd-roblox-white-symbol-sign-icon-logo-png" alt="Roblox Logo">
+        <span>Roblox</span>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
