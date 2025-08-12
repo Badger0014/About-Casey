@@ -1,122 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>About Me</title>
-  <style>
-    /* --- Restore of the very first version's layout --- */
-    :root{
-      --banner-height: 300px;
-      --pfp-size: 150px;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Me</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
 
-    body{
-      margin:0;
-      font-family: Arial, Helvetica, sans-serif;
-      background:#f4f4f4;
-      text-align:center;
-      color:#222;
-    }
+        /* Banner image */
+        .banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-    /* Banner */
-    .banner{
-      width:100%;
-      height:var(--banner-height);
-      background-repeat:no-repeat;
-      background-position:center;
-      background-size:cover;
-      /* Replace the URL below with your banner image file if you host it in the repo.
-         Using a direct image URL here (Pinterest CDN) — if you move the image to
-         your repo, change this to "./banner.jpg" or the correct path. */
-      background-image: url("https://uk.pinterest.com/pin/96757091984299004./banner.jpg");
-    }
+        /* Profile picture */
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin-top: -75px;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-    /* Profile picture */
-    .profile-pic{
-      width:var(--pfp-size);
-      height:var(--pfp-size);
-      border-radius:50%;
-      border:4px solid white;
-      margin-top:-75px; /* pulls it up over the banner like the original */
-      background-repeat:no-repeat;
-      background-position:center;
-      background-size:cover;
-      display:inline-block;
-      box-shadow:0 4px 10px rgba(0,0,0,0.15);
-      /* Replace the URL below with your profile image file if you host it in the repo.
-         If you put the profile image into your GitHub repo, use a relative path instead. */
-      background-image: url("https://uk.pinterest.com/pin/495536765271992689/");
-    }
+        /* Roblox logo */
+        .roblox-logo {
+            width: 80px;
+            height: 80px;
+            margin: 20px auto;
+        }
 
-    /* Roblox logo container (keeps layout identical to the original) */
-    .roblox-logo{
-      width:80px;
-      height:80px;
-      margin:20px auto;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
+        /* Social links */
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .socials a img {
+            width: 40px;
+            height: 40px;
+            display: block;
+        }
 
-    h1{
-      margin:10px 0 30px;
-      font-size:20px;
-      color:#222;
-    }
-
-    /* small responsive tweak */
-    @media (max-width:420px){
-      :root{ --pfp-size:120px; --banner-height:220px; }
-      .profile-pic{ margin-top:-60px; }
-    }
-  </style>
+        h1 {
+            margin-top: 10px;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Banner (restored) -->
-  <div class="banner" role="img" aria-label="Banner image"></div>
+    <!-- Banner -->
+    <div class="banner">
+        <img src="https://uk.pinterest.com/pin/96757091984299004/" alt="Banner" />
+    </div>
 
-  <!-- Profile Picture (restored) -->
-  <div class="profile-pic" role="img" aria-label="Profile picture"></div>
+    <!-- Profile Picture -->
+    <div class="profile-pic">
+        <img src="https://uk.pinterest.com/pin/495536765271992689/" alt="Profile Picture" />
+    </div>
 
-  <!-- Roblox logo: USING THE PROVIDED DESIGN AS AN INLINE SVG (white tilted square with inner square).
-       This is embedded directly so the logo displays exactly and does not rely on external hosting. -->
-  <div class="roblox-logo" aria-hidden="false" title="Roblox logo">
-    <!-- Inline SVG reproducing the tilted/rotated white-square-in-a-square look -->
-    <svg xmlns="http://www.w3.org/2000/svg"
-         viewBox="0 0 512 512"
-         width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Roblox tilted square logo">
-      <defs>
-        <radialGradient id="g" cx="50%" cy="45%" r="70%">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
-          <stop offset="60%" stop-color="#f3f3f3" stop-opacity="1"/>
-          <stop offset="100%" stop-color="#e7e7e7" stop-opacity="1"/>
-        </radialGradient>
+    <!-- Roblox Logo -->
+    <div class="roblox-logo">
+        <!-- Inline SVG from your uploaded image -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <defs>
+                <radialGradient id="g" cx="50%" cy="45%" r="70%">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="60%" stop-color="#f3f3f3"/>
+                    <stop offset="100%" stop-color="#e7e7e7"/>
+                </radialGradient>
+            </defs>
+            <rect width="512" height="512" fill="none"/>
+            <g transform="translate(256 256) rotate(25)">
+                <rect x="-210" y="-210" width="420" height="420" rx="6" ry="6" fill="url(#g)"/>
+                <rect x="-70" y="-70" width="140" height="140" rx="2" ry="2" fill="#ffffff"/>
+            </g>
+        </svg>
+    </div>
 
-        <!-- subtle outer vignette / glow -->
-        <filter id="blurGlow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="b"/>
-          <feMerge>
-            <feMergeNode in="b"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-      </defs>
+    <!-- Username -->
+    <h1>goooddinosaur</h1>
 
-      <!-- background to keep contrast on any page -->
-      <rect width="512" height="512" fill="none" />
-
-      <!-- large rotated outer square (white-ish with gentle gradient & slight rounded corners) -->
-      <g transform="translate(256 256) rotate(25)" filter="url(#blurGlow)">
-        <rect x="-210" y="-210" width="420" height="420" rx="6" ry="6" fill="url(#g)"/>
-        <!-- inner smaller square -->
-        <rect x="-70" y="-70" width="140" height="140" rx="2" ry="2" fill="#ffffff" />
-      </g>
-    </svg>
-  </div>
-
-  <h1>Your Roblox Username</h1>
+    <!-- Social Links -->
+    <div class="socials">
+        <a href="https://open.spotify.com/user/YOUR_SPOTIFY_USERNAME" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify" />
+        </a>
+        <a href="https://www.tiktok.com/@YOUR_TIKTOK_USERNAME" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/TikTok_logo.svg" alt="TikTok" />
+        </a>
+    </div>
 
 </body>
 </html>
