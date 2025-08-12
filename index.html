@@ -1,105 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>About Me</title>
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: black;
-        color: white;
-        text-align: center;
-    }
-    /* Banner */
-    .banner {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-        display: block;
-    }
-    /* Profile Picture */
-    .profile-pic {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        border: 4px solid white;
-        object-fit: cover;
-        margin-top: -60px;
-        background-color: black;
-    }
-    h1 {
-        font-size: 1.8em;
-        margin: 10px 0 5px;
-    }
-    p {
-        font-size: 1em;
-        max-width: 500px;
-        margin: auto;
-        font-style: italic;
-        padding: 0 10px;
-    }
-    /* Links with icons */
-    .links {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
-    .links a {
-        display: inline-block;
-        width: 50px;
-        height: 50px;
-    }
-    .links svg, .links img {
-        width: 100%;
-        height: 100%;
-        filter: drop-shadow(0 0 5px white);
-        transition: transform 0.2s ease;
-    }
-    .links svg:hover, .links img:hover {
-        transform: scale(1.1);
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Profile Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        /* Banner */
+        .banner {
+            width: 100%;
+            height: 300px;
+            background: url("https://i.pinimg.com/originals/1f/3f/21/1f3f219a9776e1dbbb0c660b76f83b43.jpg") no-repeat center;
+            background-size: cover;
+        }
+
+        /* Profile picture */
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin-top: -75px;
+            background: url("https://i.pinimg.com/originals/38/16/4e/38164e8f2aa3b2e3d01f4b5c939fd6d2.jpg") no-repeat center;
+            background-size: cover;
+            display: inline-block;
+        }
+
+        /* Roblox logo */
+        .roblox-logo {
+            width: 80px;
+            height: 80px;
+            transform: rotate(45deg); /* Tilt to match Roblox logo */
+            background: white;
+            border: 10px solid black;
+            box-sizing: border-box;
+            margin: 20px auto;
+            position: relative;
+        }
+        .roblox-logo::before {
+            content: "";
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 50%;
+            height: 50%;
+            background: white;
+        }
+
+        h1 {
+            margin-top: 10px;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
 
-<!-- Banner -->
-<img class="banner" src="https://i.pinimg.com/originals/96/75/70/96757091984299004.jpg" alt="Banner Image">
+    <!-- Banner -->
+    <div class="banner"></div>
 
-<!-- Profile Picture -->
-<img class="profile-pic" src="https://i.pinimg.com/originals/49/55/36/495536765271992689.jpg" alt="Profile Picture">
+    <!-- Profile Picture -->
+    <div class="profile-pic"></div>
 
-<!-- Name -->
-<h1>goooddinosaur</h1>
+    <!-- Roblox Logo -->
+    <div class="roblox-logo"></div>
 
-<!-- Bio -->
-<p>"Legacy. What is a Legacy? It’s planting seeds in a garden you never get to see."<br>— Alexander Hamilton</p>
-
-<!-- Social Links -->
-<div class="links">
-    <!-- Roblox -->
-    <a href="https://www.roblox.com/users/560006886/profile" target="_blank" aria-label="Roblox" title="Roblox">
-        <svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="white" stroke-width="20" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
-            <!-- Roblox diamond shape -->
-            <path d="M40 40 L128 16 L216 40 L216 216 L128 240 L40 216 Z"/>
-            <path d="M128 16 L128 240" />
-        </svg>
-    </a>
-
-    <!-- TikTok -->
-    <a href="https://www.tiktok.com/@goooddinosaur" target="_blank" aria-label="TikTok" title="TikTok">
-        <svg viewBox="0 0 256 256" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M223.5 80.1a94.7 94.7 0 0 1-47.4-12.9v72.1a58.3 58.3 0 1 1-51.4-57.9v33.2a25.1 25.1 0 1 0 17.8 24V18h33.6a61.1 61.1 0 0 0 47.4 49.6z"/>
-        </svg>
-    </a>
-
-    <!-- Spotify -->
-    <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" target="_blank" aria-label="Spotify" title="Spotify">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify Logo" />
-    </a>
-</div>
+    <!-- Name -->
+    <h1>Your Roblox Username</h1>
 
 </body>
 </html>
