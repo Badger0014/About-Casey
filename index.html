@@ -1,105 +1,255 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" x-data="discordApp()" :class="{ 'dark': darkMode }" x-cloak>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Page</title>
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: black;
-        color: white;
-        text-align: center;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>goooddinosaur</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs" defer></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } }
+      }
     }
-    /* Banner */
-    .banner {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-        display: block;
-    }
-    /* Profile Picture */
-    .profile-pic {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        border: 4px solid white;
-        object-fit: cover;
-        margin-top: -60px;
-        background-color: black;
-    }
-    h1 {
-        font-size: 1.8em;
-        margin: 10px 0 5px;
-    }
-    p {
-        font-size: 1em;
-        max-width: 500px;
-        margin: auto;
-        font-style: italic;
-        padding: 0 10px;
-    }
-    /* Links with icons */
-    .links {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
-    .links a {
-        display: inline-block;
-        width: 50px;
-        height: 50px;
-    }
-    .links svg, .links img {
-        width: 100%;
-        height: auto;
-        filter: drop-shadow(0 0 5px white);
-        transition: transform 0.2s ease;
-    }
-    .links svg:hover, .links img:hover {
-        transform: scale(1.1);
-    }
-</style>
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    [x-cloak] { display: none !important; }
+  </style>
 </head>
-<body>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans flex h-screen overflow-hidden">
 
-<!-- Banner -->
-<img class="banner" src="https://uk.pinterest.com/pin/96757091984299004/" alt="Banner">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-200 dark:bg-gray-800 flex flex-col">
+    <div class="p-4 font-bold text-xl border-b border-gray-300 dark:border-gray-700 flex justify-between items-center">
+      <span>My Portfolio</span>
+      <button @click="toggleDarkMode" title="Toggle Dark Mode" class="text-sm px-2 py-1 rounded bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600">🌓</button>
+    </div>
 
-<!-- Profile Picture -->
-<img class="profile-pic" src="https://uk.pinterest.com/pin/495536765271992689/" alt="Profile Picture">
+    <template x-if="user">
+      <div class="flex-1 flex flex-col overflow-y-auto">
+        <!-- Channels -->
+        <div class="p-3 border-b border-gray-300 dark:border-gray-700">
+          <h3 class="uppercase tracking-widest text-xs text-gray-600 dark:text-gray-400 mb-2">Channels</h3>
+          <ul>
+            <template x-for="channel in channels" :key="channel.id">
+              <li>
+                <button
+                  @click="selectChannel(channel.id)"
+                  :class="{'bg-blue-500 text-white': currentChannel === channel.id, 'hover:bg-gray-300 dark:hover:bg-gray-700': currentChannel !== channel.id}"
+                  class="w-full text-left px-3 py-1 rounded flex items-center space-x-2"
+                >
+                  <span>#</span><span x-text="channel.name"></span>
+                </button>
+              </li>
+            </template>
+          </ul>
+        </div>
 
-<!-- Name -->
-<h1>goooddinosaur</h1>
+        <!-- Direct Messages -->
+        <div class="p-3 flex-1 flex flex-col overflow-y-auto">
+          <h3 class="uppercase tracking-widest text-xs text-gray-600 dark:text-gray-400 mb-2">Direct Messages</h3>
+          <ul class="flex-1 overflow-y-auto">
+            <template x-for="dmUser in dmUsers" :key="dmUser">
+              <li>
+                <button
+                  @click="selectDM(dmUser)"
+                  :class="{'bg-green-500 text-white': currentDM === dmUser, 'hover:bg-gray-300 dark:hover:bg-gray-700': currentDM !== dmUser}"
+                  class="w-full text-left px-3 py-1 rounded flex items-center space-x-2"
+                >
+                  <span x-text="dmUser"></span>
+                </button>
+              </li>
+            </template>
+          </ul>
+        </div>
 
-<!-- Bio -->
-<p>"Legacy. What is a Legacy? It’s planting seeds in a garden you never get to see."<br>— Alexander Hamilton</p>
+        <div class="p-3 border-t border-gray-300 dark:border-gray-700">
+          <button @click="logout" class="w-full bg-red-600 hover:bg-red-700 text-white rounded py-2">Logout</button>
+        </div>
+      </div>
+    </template>
 
-<!-- Social Links -->
-<div class="links">
-    <!-- Roblox -->
-    <a href="https://www.roblox.com/users/560006886/profile" target="_blank" aria-label="Roblox">
-        <svg viewBox="0 0 512 512" fill="white" xmlns="http://www.w3.org/2000/svg">
-            <path d="M158.6 32L32 158.6 96.5 480 416 415.5 480 96.5 158.6 32zM256 320c-35.3 0-64-28.7-64-64s28.7-64 
-            64-64 64 28.7 64 64-28.7 64-64 64z"/>
-        </svg>
-    </a>
+    <template x-if="!user" class="p-4">
+      <button @click="view='auth'" class="w-full bg-blue-600 hover:bg-blue-700 text-white rounded py-2 m-4">Login/Register</button>
+    </template>
+  </aside>
 
-    <!-- TikTok -->
-    <a href="https://www.tiktok.com/@goooddinosaur" target="_blank" aria-label="TikTok">
-        <svg viewBox="0 0 256 256" fill="white" xmlns="http://www.w3.org/2000/svg">
-            <path d="M223.5 80.1a94.7 94.7 0 0 1-47.4-12.9v72.1a58.3 58.3 0 1 1-51.4-57.9v33.2a25.1 25.1 0 1 0 17.8 24V18h33.6a61.1 
-            61.1 0 0 0 47.4 49.6z"/>
-        </svg>
-    </a>
+  <!-- Main content -->
+  <main class="flex-1 flex flex-col">
 
-    <!-- Spotify -->
-    <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" target="_blank" aria-label="Spotify">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify">
-    </a>
-</div>
+    <!-- Top bar -->
+    <header class="flex justify-between items-center bg-white dark:bg-gray-800 p-4 border-b border-gray-300 dark:border-gray-700">
+      <template x-if="user">
+        <h2 class="text-xl font-semibold" x-text="currentChannelName"></h2>
+      </template>
+      <template x-if="!user">
+        <h2 class="text-xl font-semibold">Welcome</h2>
+      </template>
+      <button @click="toggleDarkMode" title="Toggle Dark Mode" class="text-sm px-2 py-1 rounded bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600">🌓</button>
+    </header>
 
-</body>
-</html>
+    <!-- Content -->
+    <section class="flex-1 overflow-y-auto bg-white dark:bg-gray-900 p-4 flex flex-col">
+
+      <!-- Auth Form -->
+      <template x-if="view === 'auth' && !user">
+        <div class="max-w-md mx-auto bg-gray-100 dark:bg-gray-800 p-6 rounded shadow">
+          <h3 class="text-xl font-semibold mb-4">Login or Register</h3>
+          <input type="text" x-model="auth.username" placeholder="Username" class="w-full p-2 mb-3 rounded border border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-700" />
+          <input type="password" x-model="auth.password" placeholder="Password" class="w-full p-2 mb-3 rounded border border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-700" />
+          <div class="flex space-x-2">
+            <button @click="login" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white rounded py-2">Login</button>
+            <button @click="register" class="flex-1 bg-green-600 hover:bg-green-700 text-white rounded py-2">Register</button>
+          </div>
+        </div>
+      </template>
+
+      <!-- Portfolio Section -->
+      <template x-if="view === 'main' && user && !currentDM">
+
+        <!-- Banner -->
+        <div class="w-full h-40 overflow-hidden rounded-b-lg mb-6">
+          <img 
+            src="https://i.pinimg.com/originals/40/66/28/406628b2b8502609ec8a5444f7fcd98c.jpg" 
+            alt="Banner" 
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- Profile Picture and Username -->
+        <div class="flex items-center space-x-4 mb-6">
+          <img 
+            src="https://i.pinimg.com/originals/8f/91/60/8f9160bcb22a63db3e1b8882ef5a174c.jpg" 
+            alt="Profile Picture" 
+            class="w-20 h-20 rounded-full object-cover border-4 border-white dark:border-gray-900"
+          />
+          <div>
+            <h1 class="text-3xl font-bold" x-text="user"></h1>
+            <p class="text-gray-600 dark:text-gray-400">Web Developer & Creator</p>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="flex space-x-6 text-gray-600 dark:text-gray-400 text-lg mb-8">
+          <a href="https://www.roblox.com/users/560006886/profile" target="_blank" rel="noopener" title="Roblox Profile" class="hover:text-blue-600">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111628.png" alt="Roblox" class="w-6 h-6 inline"/>
+          </a>
+          <a href="https://www.tiktok.com/@goooddinosaur" target="_blank" rel="noopener" title="TikTok Profile" class="hover:text-pink-600">
+            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046123.png" alt="TikTok" class="w-6 h-6 inline"/>
+          </a>
+          <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" target="_blank" rel="noopener" title="Spotify Profile" class="hover:text-green-600">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111624.png" alt="Spotify" class="w-6 h-6 inline"/>
+          </a>
+        </div>
+
+        <!-- Post creation -->
+        <div class="bg-gray-100 dark:bg-gray-800 rounded p-4 mb-6">
+          <textarea x-model="newPost" rows="3" placeholder="Share something..." class="w-full p-2 rounded border border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-700 mb-2"></textarea>
+          <input type="file" @change="handleImage" class="mb-2" />
+          <button @click="addPost" class="bg-blue-600 hover:bg-blue-700 text-white rounded py-2 px-4">Post</button>
+        </div>
+
+        <!-- Posts -->
+        <template x-for="(post, i) in posts" :key="i">
+          <article class="bg-gray-100 dark:bg-gray-800 rounded p-4 mb-4">
+            <header class="flex items-center space-x-3 mb-2">
+              <button @click="showProfile(post.username)" class="font-bold hover:underline text-blue-600 dark:text-blue-400" type="button" x-text="post.username"></button>
+              <time class="text-xs text-gray-500 dark:text-gray-400" x-text="formatDate(post.date)"></time>
+            </header>
+            <p x-text="post.content" class="mb-2"></p>
+            <template x-if="post.image">
+              <img :src="post.image" alt="Post Image" class="max-h-60 rounded mb-2" />
+            </template>
+            <div class="border-t border-gray-300 dark:border-gray-700 pt-2">
+              <template x-for="(comment, ci) in post.comments" :key="ci">
+                <p class="text-sm"><strong class="text-blue-600 dark:text-blue-400" @click="showProfile(comment.username)" style="cursor:pointer" x-text="comment.username"></strong>: <span x-text="comment.text"></span></p>
+              </template>
+              <input
+                type="text"
+                placeholder="Write a comment and press Enter..."
+                class="mt-2 w-full p-1 rounded border border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm"
+                @keydown.enter="addComment(i, $event.target.value); $event.target.value=''"
+              />
+            </div>
+          </article>
+        </template>
+      </template>
+
+      <!-- Chat Section -->
+      <template x-if="user && (currentDM || currentChannel)">
+        <div class="flex flex-col flex-1">
+          <div class="flex-1 overflow-y-auto mb-4 space-y-4 p-3">
+            <template x-for="(msg, index) in currentMessages" :key="index">
+              <div class="flex items-start space-x-3" :class="{'justify-end': msg.username === user}">
+                <template x-if="msg.username !== user">
+                  <img
+                    src="https://i.pinimg.com/originals/8f/91/60/8f9160bcb22a63db3e1b8882ef5a174c.jpg"
+                    alt="User Avatar"
+                    class="w-8 h-8 rounded-full object-cover"
+                  />
+                </template>
+                <div :class="{'bg-blue-600 text-white rounded-br-none': msg.username === user, 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-bl-none': msg.username !== user}"
+                  class="max-w-xs p-3 rounded-lg shadow"
+                >
+                  <div class="font-bold mb-1" x-text="msg.username"></div>
+                  <div x-text="msg.text"></div>
+                  <time class="block text-xs mt-1 text-gray-500 dark:text-gray-400" x-text="formatDate(msg.date)"></time>
+                </div>
+              </div>
+            </template>
+          </div>
+          <form @submit.prevent="sendMessage" class="flex space-x-2">
+            <input
+              type="text"
+              placeholder="Type a message..."
+              x-model="newMessage"
+              class="flex-1 p-2 rounded border border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              required
+            />
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white rounded px-4">Send</button>
+          </form>
+        </div>
+      </template>
+
+    </section>
+  </main>
+
+  <!-- Profile Modal -->
+  <div
+    x-show="profileModal"
+    @click.away="profileModal = false"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    x-transition.opacity
+  >
+    <div class="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6 shadow-lg">
+      <button @click="profileModal = false" class="float-right text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">✖</button>
+      <div class="text-center">
+        <img
+          src="https://i.pinimg.com/originals/8f/91/60/8f9160bcb22a63db3e1b8882ef5a174c.jpg"
+          alt="Profile Pic"
+          class="mx-auto rounded-full w-24 h-24 mb-4 object-cover"
+        />
+        <h3 class="text-2xl font-bold mb-1" x-text="profileUser"></h3>
+        <p class="text-gray-600 dark:text-gray-400">This is a user profile popup.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function discordApp() {
+      return {
+        darkMode: localStorage.getItem('darkMode') === 'true' || false,
+        toggleDarkMode() {
+          this.darkMode = !this.darkMode;
+          localStorage.setItem('darkMode', this.darkMode);
+        },
+
+        view: 'main',
+        user: localStorage.getItem('user') || null,
+        auth: { username: '', password: '' },
+
+        channels: [
+          { id: 'general', name: 'general' },
