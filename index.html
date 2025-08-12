@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Page Name</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About Me</title>
   <style>
     body {
       margin: 0;
@@ -51,7 +51,24 @@
       text-decoration: none;
       color: #eee;
       font-size: 1.1em;
-      transition: background-color 0.2s, border-color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background-color 0.2s, border-color 0.2s, filter 0.2s;
+    }
+    /* Glow for icons */
+    .link-card img {
+      width: 24px;
+      height: 24px;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.7))
+              drop-shadow(0 0 14px rgba(255,255,255,0.5));
+      transition: filter 0.2s ease;
+    }
+    .link-card:hover img {
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.9))
+              drop-shadow(0 0 20px rgba(255,255,255,0.8))
+              drop-shadow(0 0 30px rgba(255,255,255,0.6));
     }
     .link-card:hover {
       background-color: #333;
@@ -60,26 +77,40 @@
   </style>
 </head>
 <body>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="https://jumpshare.com/s/5K2YO0RcyYz824xLqt8C" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
   <div class="container">
-    <!-- Optional banner -->
+    <!-- Banner -->
     <div class="banner">
-      <img src="<a href="https://ibb.co/vvmHHdVp"><img src="https://i.ibb.co/vvmHHdVp/22789f623ea02b1a237a695be7bc0c81.jpg" alt="22789f623ea02b1a237a695be7bc0c81" border="0"></a>"  />
+      <img src="<a href="https://ibb.co/vvmHHdVp"><img src="https://i.ibb.co/vvmHHdVp/22789f623ea02b1a237a695be7bc0c81.jpg" alt="22789f623ea02b1a237a695be7bc0c81" border="0"></a>"
     </div>
 
-    <!-- Profile picture/avatar -->
+    <!-- Profile picture -->
     <div class="profile-pic">
-      <img src="<a href="https://ibb.co/VWmHtVZf"><img src="https://i.ibb.co/VWmHtVZf/84cef277baee327f503bbb277bab8386-1.png" alt="84cef277baee327f503bbb277bab8386-1" border="0"></a>"  />
+      <img src="<a href="https://ibb.co/VWmHtVZf"><img src="https://i.ibb.co/VWmHtVZf/84cef277baee327f503bbb277bab8386-1.png" alt="84cef277baee327f503bbb277bab8386-1" border="0"></a>"
     </div>
 
-    <!-- Title or Username -->
+    <!-- Username -->
     <div class="username">goooddinosaur</div>
 
-    <!-- Link cards section -->
+    <!-- Link Cards -->
     <div class="links">
-      <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" class="link-card" target="_blank">Spotify</a>
-      <a href="https://www.tiktok.com/@goooddinosaur" class="link-card" target="_blank">TikTok</a>
-      <a href="https://www.roblox.com/users/560006886/profile" class="link-card" target="_blank">Roblox</a>
+      <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" class="link-card" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify">Spotify
+      </a>
+      <a href="https://www.tiktok.com/@goooddinosaur" class="link-card" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/TikTok_logo.svg" alt="TikTok">TikTok
+      </a>
+      <a href="https://www.roblox.com/users/560006886/profile" class="link-card" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Roblox_Logo_2022.svg" alt="Roblox">Roblox
+      </a>
     </div>
   </div>
+
 </body>
 </html>
