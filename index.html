@@ -1,116 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>About Me</title>
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legacy</title>
+<style>
     body {
-      margin: 0;
-      padding: 40px 20px;
-      background-color: #111;
-      color: #eee;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: black;
+        color: white;
+        text-align: center;
+        padding: 20px;
     }
-    .container {
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
+    h1 {
+        font-size: 2em;
+        margin-bottom: 10px;
     }
-    .banner img {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-    .profile-pic img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 3px solid #333;
-      object-fit: cover;
-      margin: -60px auto 10px;
-      background-color: #222;
-    }
-    .username {
-      font-size: 1.6em;
-      margin-bottom: 20px;
-      font-weight: bold;
+    p {
+        font-size: 1em;
+        max-width: 500px;
+        margin: auto;
+        font-style: italic;
     }
     .links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
     }
-    .link-card {
-      background-color: #222;
-      padding: 14px;
-      border-radius: 6px;
-      border: 2px solid #333;
-      text-decoration: none;
-      color: #eee;
-      font-size: 1.1em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: background-color 0.2s, border-color 0.2s, filter 0.2s;
+    .links a {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
     }
-    /* Glow for icons */
-    .link-card img {
-      width: 24px;
-      height: 24px;
-      filter: drop-shadow(0 0 6px rgba(255,255,255,0.7))
-              drop-shadow(0 0 14px rgba(255,255,255,0.5));
-      transition: filter 0.2s ease;
+    .links img {
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 0 6px white) drop-shadow(0 0 15px white);
+        transition: transform 0.2s ease, filter 0.2s ease;
     }
-    .link-card:hover img {
-      filter: drop-shadow(0 0 10px rgba(255,255,255,0.9))
-              drop-shadow(0 0 20px rgba(255,255,255,0.8))
-              drop-shadow(0 0 30px rgba(255,255,255,0.6));
+    .links img:hover {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 10px white) drop-shadow(0 0 25px white);
     }
-    .link-card:hover {
-      background-color: #333;
-      border-color: #555;
-    }
-  </style>
+</style>
 </head>
 <body>
 
-  <!-- Background Music -->
-  <audio autoplay loop>
-    <source src="https://jumpshare.com/s/5K2YO0RcyYz824xLqt8C" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+<!-- Banner -->
+<img src="<a href="https://ibb.co/vvmHHdVp"><img src="https://i.ibb.co/vvmHHdVp/22789f623ea02b1a237a695be7bc0c81.jpg" alt="22789f623ea02b1a237a695be7bc0c81" border="0"></a>" style="width:100%; border-radius:8px;">
 
-  <div class="container">
-    <!-- Banner -->
-    <div class="banner">
-      <img src="<a href="https://ibb.co/vvmHHdVp"><img src="https://i.ibb.co/vvmHHdVp/22789f623ea02b1a237a695be7bc0c81.jpg" alt="22789f623ea02b1a237a695be7bc0c81" border="0"></a>"
-    </div>
+<!-- Profile Picture -->
+<img src="<a href="https://ibb.co/VWmHtVZf"><img src="https://i.ibb.co/VWmHtVZf/84cef277baee327f503bbb277bab8386-1.png" alt="84cef277baee327f503bbb277bab8386-1" border="0"></a>" style="width:120px; height:120px; border-radius:50%; margin-top:-60px; border:3px solid white;">
 
-    <!-- Profile picture -->
-    <div class="profile-pic">
-      <img src="<a href="https://ibb.co/VWmHtVZf"><img src="https://i.ibb.co/VWmHtVZf/84cef277baee327f503bbb277bab8386-1.png" alt="84cef277baee327f503bbb277bab8386-1" border="0"></a>"
-    </div>
+<!-- Username -->
+<h1>goooddinosaur</h1>
+<p>"Legacy. What is a Legacy? It’s planting seeds in a garden you never get to see."<br>— Alexander Hamilton</p>
 
-    <!-- Username -->
-    <div class="username">goooddinosaur</div>
-
-    <!-- Link Cards -->
-    <div class="links">
-      <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" class="link-card" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify">Spotify
-      </a>
-      <a href="https://www.tiktok.com/@goooddinosaur" class="link-card" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/TikTok_logo.svg" alt="TikTok">TikTok
-      </a>
-      <a href="https://www.roblox.com/users/560006886/profile" class="link-card" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Roblox_Logo_2022.svg" alt="Roblox">Roblox
-      </a>
-    </div>
-  </div>
+<!-- Social Links -->
+<div class="links">
+    <a href="https://www.roblox.com/users/560006886/profile" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Roblox_Logo_2022.svg" alt="Roblox">
+    </a>
+    <a href="https://www.tiktok.com/@goooddinosaur" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/TikTok_logo.svg" alt="TikTok">
+    </a>
+    <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify">
+    </a>
+</div>
 
 </body>
 </html>
