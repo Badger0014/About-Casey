@@ -5,24 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>About Me</title>
 <style>
-  /* Basic resets */
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body, html {
     height: 100%;
     font-family: Arial, sans-serif;
-    overflow-x: hidden;
     background: url('background.jpg') center/cover no-repeat;
+    overflow-x: hidden;
     position: relative;
   }
 
   /* Click-to-enter overlay */
   #enterScreen {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: black;
     display: flex;
     justify-content: center;
@@ -38,14 +34,14 @@
   /* Main page blur */
   #mainPage {
     filter: blur(8px);
+    text-align: center;
   }
 
   /* Banner */
   .banner {
     width: 100%;
-    height: 180px;           
-    object-fit: cover;       
-    display: block;
+    height: 180px;
+    object-fit: cover;
   }
 
   /* Profile Picture */
@@ -55,22 +51,21 @@
     border-radius: 50%;
     border: 4px solid white;
     object-fit: cover;
-    margin-top: -60px;       
+    margin-top: -60px;
     position: relative;
     z-index: 2;
   }
 
   /* Speech bubble */
   .speech-bubble {
-    position: absolute;
-    top: 50px;
-    left: 140px;
+    display: inline-block;
     background: white;
     color: black;
     padding: 10px 15px;
     border-radius: 25px;
     font-weight: bold;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    margin-left: 10px;
+    position: relative;
     font-size: 0.9em;
   }
   .speech-bubble::after {
@@ -78,15 +73,13 @@
     position: absolute;
     top: 50%;
     left: -15px;
-    width: 0;
-    height: 0;
+    width: 0; height: 0;
     border: 10px solid transparent;
     border-right-color: white;
     border-left: 0;
     margin-top: -10px;
   }
 
-  /* Name */
   h1 {
     font-size: 2em;
     margin: 10px 0;
@@ -103,59 +96,38 @@
     color: white;
     opacity: 0;
     transition: opacity 1s ease;
-    text-align: center;
   }
   .quote.active { opacity: 1; }
 
-  /* Links */
+  /* Social Links */
   .links {
     margin-top: 20px;
     display: flex;
     justify-content: center;
     gap: 20px;
-    position: relative;
-    z-index: 2;
   }
-  .links a {
-    display: inline-block;
+  .links a img {
     width: 50px;
     height: 50px;
-  }
-  .links img {
-    width: 100%;
-    height: 100%;
     filter: brightness(0) invert(1) drop-shadow(0 0 5px white);
     transition: transform 0.2s ease;
   }
-  .links img:hover {
-    transform: scale(1.1);
-  }
-
-  /* Birds */
-  .bird {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    top: calc(50% - 20px);
-    left: -50px;
-    z-index: 5;
-    transition: transform 5s linear;
-  }
+  .links a img:hover { transform: scale(1.1); }
 
 </style>
 </head>
 <body>
 
-<!-- Click to enter -->
+<!-- Click-to-enter -->
 <div id="enterScreen">Click here to enter...</div>
 
 <!-- Main page -->
 <div id="mainPage">
   <img class="banner" src="./22789f623ea02b1a237a695be7bc0c81.jpg" alt="Banner" />
-
-  <div style="position: relative; display: inline-block;">
+  
+  <div style="margin-top:20px;">
     <img class="profile-pic" src="./84cef277baee327f503bbb277bab8386-1.png" alt="Profile Picture" />
-    <div class="speech-bubble">I'm a female</div>
+    <span class="speech-bubble">I'm a female</span>
   </div>
 
   <h1>goooddinosaur</h1>
@@ -169,29 +141,23 @@
 
   <!-- Social Links -->
   <div class="links">
-    <a href="https://www.roblox.com/users/560006886/profile" target="_blank" rel="noopener">
-      <img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Roblox" />
-    </a>
-    <a href="https://www.tiktok.com/@goooddinosaur" target="_blank" rel="noopener">
-      <img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="TikTok" />
-    </a>
-    <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" target="_blank" rel="noopener">
-      <img src="https://cdn.simpleicons.org/spotify/ffffff" alt="Spotify" />
-    </a>
+    <a href="https://www.roblox.com/users/560006886/profile" target="_blank"><img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Roblox" /></a>
+    <a href="https://www.tiktok.com/@goooddinosaur" target="_blank"><img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="TikTok" /></a>
+    <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" target="_blank"><img src="https://cdn.simpleicons.org/spotify/ffffff" alt="Spotify" /></a>
   </div>
 </div>
 
-<!-- Hidden background music -->
+<!-- Background music -->
 <audio id="bgMusic" src="background.mp3" autoplay loop></audio>
 
 <script>
-  // Click to enter functionality
+  // Click-to-enter
   const enterScreen = document.getElementById('enterScreen');
   const mainPage = document.getElementById('mainPage');
   enterScreen.addEventListener('click', () => {
     enterScreen.style.opacity = 0;
     setTimeout(() => { enterScreen.style.display = 'none'; }, 1000);
-    mainPage.style.filter = 'blur(8px)'; // Keep blur as guns.lol style
+    mainPage.style.filter = 'blur(8px)';
   });
 
   // Quote carousel
@@ -203,20 +169,6 @@
     currentQuote = (currentQuote + 1) % quotes.length;
     quotes[currentQuote].classList.add('active');
   }, 7500);
-
-  // Birds animation
-  const birdImgs = ['https://cdn-icons-png.flaticon.com/512/616/616408.png']; // Replace with your bird image if needed
-  for (let i=0; i<3; i++) { // spawn 3 birds
-    const bird = document.createElement('img');
-    bird.src = birdImgs[0];
-    bird.classList.add('bird');
-    bird.style.top = (50 + i*30) + 'px';
-    document.body.appendChild(bird);
-    setTimeout(() => {
-      bird.style.transform = 'translateX(120vw)';
-    }, 100);
-    setTimeout(() => { bird.remove(); }, 5100);
-  }
 </script>
 
 </body>
