@@ -1,85 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>About Me</title>
 <style>
-  /* Basic Reset */
+  /* Basic resets */
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html, body {
-    width: 100%;
+  body, html {
     height: 100%;
     font-family: Arial, sans-serif;
-    overflow: hidden;
-  }
-
-  /* Background */
-  body {
-    background: url('background.jpg') center/cover no-repeat fixed;
+    overflow-x: hidden;
+    background: url('background.jpg') center/cover no-repeat;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   /* Click-to-enter overlay */
-  #overlay {
+  #enterScreen {
     position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.8);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 9999;
     cursor: pointer;
+    color: white;
+    font-size: 2em;
+    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
     transition: opacity 1s ease;
   }
 
-  #overlay.fade-out {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  #overlay h1 {
-    font-size: 3em;
-    color: white;
-    text-shadow: 0 0 10px cyan, 0 0 20px magenta;
-    animation: neon 1.5s infinite alternate;
-  }
-
-  @keyframes neon {
-    from { text-shadow: 0 0 5px cyan, 0 0 10px magenta; }
-    to { text-shadow: 0 0 20px cyan, 0 0 30px magenta; }
-  }
-
-  /* Main content container */
-  #main {
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
-    text-align: center;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    color: white;
+  /* Main page blur */
+  #mainPage {
+    filter: blur(8px);
   }
 
   /* Banner */
   .banner {
     width: 100%;
-    max-height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: -60px;
-    opacity: 0;
-    animation: bannerFade 1.5s forwards;
-  }
-
-  @keyframes bannerFade {
-    to { opacity: 1; }
+    height: 180px;           
+    object-fit: cover;       
+    display: block;
   }
 
   /* Profile Picture */
@@ -89,58 +55,66 @@
     border-radius: 50%;
     border: 4px solid white;
     object-fit: cover;
-    margin-bottom: 10px;
+    margin-top: -60px;       
     position: relative;
+    z-index: 2;
   }
 
   /* Speech bubble */
   .speech-bubble {
     position: absolute;
-    top: 30px;
-    left: 140px; /* slightly right of profile pic */
-    background: rgba(0,0,0,0.7);
-    padding: 8px 12px;
+    top: 50px;
+    left: 140px;
+    background: white;
+    color: black;
+    padding: 10px 15px;
     border-radius: 25px;
-    color: white;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
     font-size: 0.9em;
-    max-width: 150px;
-    pointer-events: none;
   }
-
   .speech-bubble::after {
     content: '';
     position: absolute;
     top: 50%;
-    left: -10px;
-    transform: translateY(-50%);
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent rgba(0,0,0,0.7) transparent transparent;
+    left: -15px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-right-color: white;
+    border-left: 0;
+    margin-top: -10px;
   }
 
   /* Name */
-  h1.name {
+  h1 {
     font-size: 2em;
     margin: 10px 0;
-    text-shadow: 0 0 5px cyan, 0 0 10px magenta;
+    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
   }
 
   /* Quote carousel */
-  #quote {
-    font-style: italic;
+  .quote {
     font-weight: bold;
-    max-width: 600px;
-    margin: 15px auto;
+    font-size: 1em;
+    max-width: 500px;
+    margin: 20px auto;
+    font-style: italic;
+    color: white;
+    opacity: 0;
     transition: opacity 1s ease;
-    min-height: 50px;
+    text-align: center;
   }
+  .quote.active { opacity: 1; }
 
-  /* Social links */
+  /* Links */
   .links {
     margin-top: 20px;
     display: flex;
     justify-content: center;
     gap: 20px;
+    position: relative;
+    z-index: 2;
   }
   .links a {
     display: inline-block;
@@ -157,28 +131,43 @@
     transform: scale(1.1);
   }
 
+  /* Birds */
+  .bird {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: calc(50% - 20px);
+    left: -50px;
+    z-index: 5;
+    transition: transform 5s linear;
+  }
+
 </style>
 </head>
 <body>
 
-<!-- Click to enter overlay -->
-<div id="overlay">
-  <h1>Click here to enter...</h1>
-</div>
+<!-- Click to enter -->
+<div id="enterScreen">Click here to enter...</div>
 
-<!-- Main content -->
-<div id="main">
-  <img class="banner" src="22789f623ea02b1a237a695be7bc0c81.jpg" alt="Banner">
-  
-  <div style="position: relative;">
-    <img class="profile-pic" src="84cef277baee327f503bbb277bab8386-1.png" alt="Profile Picture">
+<!-- Main page -->
+<div id="mainPage">
+  <img class="banner" src="./22789f623ea02b1a237a695be7bc0c81.jpg" alt="Banner" />
+
+  <div style="position: relative; display: inline-block;">
+    <img class="profile-pic" src="./84cef277baee327f503bbb277bab8386-1.png" alt="Profile Picture" />
     <div class="speech-bubble">I'm a female</div>
   </div>
 
-  <h1 class="name">goooddinosaur</h1>
+  <h1>goooddinosaur</h1>
 
-  <div id="quote"></div>
+  <!-- Quote carousel -->
+  <div class="quote">“Talk less. Smile more.” – Aaron Burr</div>
+  <div class="quote">“History has its eyes on you.” – George Washington</div>
+  <div class="quote">“Legacy. What is a legacy? It’s planting seeds in a garden you never get to see.” – Alexander Hamilton</div>
+  <div class="quote">“Death doesn’t discriminate between the sinners and the saints, it takes and it takes and it takes.” – Aaron Burr</div>
+  <div class="quote">“Rise up. When you’re living on your knees, you rise up.” – Ensemble</div>
 
+  <!-- Social Links -->
   <div class="links">
     <a href="https://www.roblox.com/users/560006886/profile" target="_blank" rel="noopener">
       <img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Roblox" />
@@ -190,48 +179,45 @@
       <img src="https://cdn.simpleicons.org/spotify/ffffff" alt="Spotify" />
     </a>
   </div>
-
-  <!-- Background music -->
-  <audio id="bg-music" src="background.mp3" autoplay loop></audio>
 </div>
 
+<!-- Hidden background music -->
+<audio id="bgMusic" src="background.mp3" autoplay loop></audio>
+
 <script>
-  // Click-to-enter functionality
-  const overlay = document.getElementById('overlay');
-  const main = document.getElementById('main');
-  overlay.addEventListener('click', () => {
-    overlay.classList.add('fade-out');
-    setTimeout(() => {
-      overlay.style.display = 'none';
-      main.style.display = 'flex';
-      document.getElementById('bg-music').play().catch(()=>{}); // autoplay fallback
-    }, 1000);
+  // Click to enter functionality
+  const enterScreen = document.getElementById('enterScreen');
+  const mainPage = document.getElementById('mainPage');
+  enterScreen.addEventListener('click', () => {
+    enterScreen.style.opacity = 0;
+    setTimeout(() => { enterScreen.style.display = 'none'; }, 1000);
+    mainPage.style.filter = 'blur(8px)'; // Keep blur as guns.lol style
   });
 
   // Quote carousel
-  const quotes = [
-    "“Talk less. Smile more.” – Aaron Burr",
-    "“History has its eyes on you.” – George Washington",
-    "“Legacy. What is a legacy? It’s planting seeds in a garden you never get to see.” – Alexander Hamilton",
-    "“Death doesn’t discriminate between the sinners and the saints, it takes and it takes and it takes.” – Aaron Burr",
-    "“Rise up. When you’re living on your knees, you rise up.” – Ensemble"
-  ];
+  const quotes = document.querySelectorAll('.quote');
+  let currentQuote = 0;
+  quotes[currentQuote].classList.add('active');
+  setInterval(() => {
+    quotes[currentQuote].classList.remove('active');
+    currentQuote = (currentQuote + 1) % quotes.length;
+    quotes[currentQuote].classList.add('active');
+  }, 7500);
 
-  const quoteDiv = document.getElementById('quote');
-  let index = 0;
-
-  function showQuote() {
-    quoteDiv.style.opacity = 0;
+  // Birds animation
+  const birdImgs = ['https://cdn-icons-png.flaticon.com/512/616/616408.png']; // Replace with your bird image if needed
+  for (let i=0; i<3; i++) { // spawn 3 birds
+    const bird = document.createElement('img');
+    bird.src = birdImgs[0];
+    bird.classList.add('bird');
+    bird.style.top = (50 + i*30) + 'px';
+    document.body.appendChild(bird);
     setTimeout(() => {
-      quoteDiv.textContent = quotes[index];
-      quoteDiv.style.opacity = 1;
-      index = (index + 1) % quotes.length;
-    }, 1000);
+      bird.style.transform = 'translateX(120vw)';
+    }, 100);
+    setTimeout(() => { bird.remove(); }, 5100);
   }
-
-  showQuote();
-  setInterval(showQuote, 7500);
-
 </script>
+
 </body>
 </html>
