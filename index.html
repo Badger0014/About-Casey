@@ -211,6 +211,31 @@
     }, 1000);
   }, 7500);
 </script>
+</script>
+<!-- Place this inside the <body> -->
+
+<!-- Audio element (hidden) -->
+<audio id="bgMusic" src="background.mp3" loop></audio>
+
+<!-- Click to enter screen -->
+<div id="enterScreen" style="position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1000;">
+  <h1 style="color:white; font-size:3em; text-shadow: 0 0 10px #fff, 0 0 20px #fff;">Click here to enter...</h1>
+</div>
+
+<script>
+  const enterScreen = document.getElementById('enterScreen');
+  const bgMusic = document.getElementById('bgMusic');
+
+  enterScreen.addEventListener('click', () => {
+    // Hide the click-to-enter screen
+    enterScreen.style.display = 'none';
+
+    // Play the background music
+    bgMusic.play().catch(e => {
+      console.log("Autoplay blocked. User interaction required.");
+    });
+  });
+</script>
 
 </body>
 </html>
