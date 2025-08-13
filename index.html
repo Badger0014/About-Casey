@@ -122,18 +122,17 @@
     margin-bottom: 15px;
   }
 
-  /* Neon effect for icons */
+  /* Neon white icons */
   .links a img {
     width: 40px;
     height: 40px;
     filter: brightness(1) invert(1);
+    /* permanent neon white glow */
+    filter: drop-shadow(0 0 5px #fff)
+            drop-shadow(0 0 10px #fff)
+            drop-shadow(0 0 20px #fff)
+            drop-shadow(0 0 40px #fff);
     transition: 0.3s;
-  }
-  .links a img:hover {
-    filter: drop-shadow(0 0 5px #0ff)
-            drop-shadow(0 0 10px #0ff)
-            drop-shadow(0 0 20px #0ff)
-            drop-shadow(0 0 40px #0ff);
   }
 
   /* Quote carousel */
