@@ -12,6 +12,14 @@
     color: white;
     text-align: center;
     backdrop-filter: blur(12px);
+    overflow-x: hidden;
+  }
+
+  /* Particle Canvas */
+  #particles {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
   }
 
   /* Intro overlay */
@@ -25,20 +33,28 @@
     align-items: center;
     z-index: 999;
     flex-direction: column;
-    animation: fadeOut 1s ease forwards;
-    animation-delay: 2s;
+  }
+  #overlay h1 {
+    color: white;
+    text-shadow: 0 0 15px white;
+    animation: shine 2s infinite;
+  }
+  @keyframes shine {
+    0%, 100% { text-shadow: 0 0 15px white, 0 0 30px white; }
+    50% { text-shadow: 0 0 20px white, 0 0 40px white; }
   }
 
-  @keyframes fadeOut {
-    to { opacity: 0; visibility: hidden; }
-  }
-
-  /* Banner */
+  /* Banner fade */
   .banner {
     width: 100%;
     height: 200px;
     object-fit: cover;
     display: block;
+    opacity: 0;
+    animation: fadeInBanner 2s ease forwards;
+  }
+  @keyframes fadeInBanner {
+    to { opacity: 1; }
   }
 
   /* Profile Picture & speech bubble */
@@ -47,7 +63,6 @@
     display: inline-block;
     margin-top: -60px;
   }
-
   .profile-pic {
     width: 120px;
     height: 120px;
@@ -56,28 +71,29 @@
     object-fit: cover;
     background-color: black;
   }
-
   .speech-bubble {
     position: absolute;
-    top: -40px;
+    top: -70px;
     left: 130px;
+    max-width: 160px;
+    padding: 12px 15px;
     background: white;
     color: black;
-    padding: 8px 12px;
-    border-radius: 10px;
+    border-radius: 50px;
     font-size: 0.9em;
     font-weight: bold;
     box-shadow: 0 0 10px rgba(255,255,255,0.6);
-    white-space: nowrap;
+    line-height: 1.3em;
   }
-
   .speech-bubble::after {
     content: '';
     position: absolute;
+    left: -15px;
     top: 50%;
-    left: -8px;
     transform: translateY(-50%);
-    border: 8px solid transparent;
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
     border-right-color: white;
   }
 
@@ -124,9 +140,12 @@
 </head>
 <body>
 
+<!-- Particle background -->
+<canvas id="particles"></canvas>
+
 <!-- Intro overlay -->
 <div id="overlay">
-  <h1 style="color:white;text-shadow:0 0 15px white;">Click here to enter...</h1>
+  <h1>Click here to enter...</h1>
 </div>
 
 <!-- Background music -->
@@ -182,11 +201,48 @@
   setInterval(showQuote, 5000);
   showQuote();
 
-  // Remove overlay on click
+  // Overlay click
   document.getElementById('overlay').addEventListener('click', function() {
     this.style.display = 'none';
     document.getElementById('bg-music').play();
   });
+
+  // Particle effect
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let particlesArray;
+  let w, h;
+  function initParticles() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    particlesArray = [];
+    for (let i = 0; i < 60; i++) {
+      particlesArray.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        size: Math.random() * 3 + 1,
+        speedX: (Math.random() - 0.5) * 0.5,
+        speedY: (Math.random() - 0.5) * 0.5
+      });
+    }
+  }
+  function animateParticles() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    particlesArray.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+      p.x += p.speedX;
+      p.y += p.speedY;
+      if (p.x < 0 || p.x > w) p.speedX *= -1;
+      if (p.y < 0 || p.y > h) p.speedY *= -1;
+    });
+    requestAnimationFrame(animateParticles);
+  }
+  window.addEventListener('resize', initParticles);
+  initParticles();
+  animateParticles();
 </script>
 
 </body>
