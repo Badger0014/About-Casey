@@ -92,15 +92,23 @@
       0 0 40px #0ff,
       0 0 80px #0ff;
     animation: glow 1.5s infinite alternate;
+    opacity: 1;
+    transition: opacity 1s ease;
   }
 
   @keyframes glow {
     0% { text-shadow: 0 0 10px #fff, 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff; }
     100% { text-shadow: 0 0 20px #fff, 0 0 40px #0ff, 0 0 60px #0ff, 0 0 80px #0ff; }
   }
+
+  /* Hidden blur before entering */
+  .blurred {
+    filter: blur(20px);
+    transition: filter 1s ease;
+  }
 </style>
 </head>
-<body>
+<body class="blurred">
 
 <!-- Background Music -->
 <audio id="bg-audio" loop>
@@ -134,9 +142,17 @@
   const body = document.body;
 
   overlay.addEventListener('click', () => {
+    // Play audio
     audio.play().catch(err => console.log("Audio play blocked:", err));
-    overlay.style.display = 'none';
-    body.style.filter = 'none'; // remove any blur
+
+    // Fade out overlay
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+      overlay.style.display = 'none';
+    }, 1000);
+
+    // Remove blur smoothly
+    body.classList.remove('blurred');
   });
 </script>
 
