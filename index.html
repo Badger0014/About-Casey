@@ -5,36 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Me</title>
 <style>
-  /* Basic Reset */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html, body {
     height: 100%;
     font-family: Arial, sans-serif;
-    color: white;
     overflow: hidden;
+    color: white;
+  }
+
+  /* Background with slight blur */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: url('background.jpg') no-repeat center center fixed;
     background-size: cover;
     filter: blur(3px); /* subtle blur */
+    z-index: -1;
   }
 
   /* Click-to-enter overlay */
   #enterScreen {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: rgba(0,0,0,0.85);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10;
     cursor: pointer;
+    opacity: 1;
+    transition: opacity 1s ease;
   }
 
   #enterScreen h1 {
@@ -64,7 +68,7 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    margin-top: -60px; /* pulls profile pic over banner */
+    margin-top: -60px;
   }
 
   /* Profile picture */
@@ -90,18 +94,19 @@
     color: white;
     margin-top: 10px;
     font-size: 0.9em;
+    margin-left: 10px;
   }
   .speech-bubble::after {
     content: '';
     position: absolute;
     bottom: 100%;
-    left: 20px;
+    left: 15px;
     border-width: 10px;
     border-style: solid;
     border-color: transparent transparent rgba(0,0,0,0.7) transparent;
   }
 
-  /* Social & carousel box */
+  /* Box for icons and carousel */
   .box {
     display: inline-block;
     background: rgba(0,0,0,0.7);
@@ -168,12 +173,13 @@
 <audio id="bgAudio" src="background.mp3" autoplay loop></audio>
 
 <script>
-  // Click to enter
+  // Click to enter with fade
   const enterScreen = document.getElementById('enterScreen');
-  const mainContent = document.getElementById('mainContent');
   enterScreen.addEventListener('click', () => {
-    enterScreen.style.display = 'none';
-    document.body.style.filter = 'none'; // remove blur
+    enterScreen.style.opacity = 0;
+    setTimeout(() => {
+      enterScreen.style.display = 'none';
+    }, 1000); // match CSS transition
   });
 
   // Quote carousel
