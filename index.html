@@ -1,53 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Me</title>
 <style>
-  body {
-    margin: 0;
+  /* Basic Reset */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
     font-family: Arial, sans-serif;
-    background: url('background1.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: white;
-    text-align: center;
     overflow: hidden;
-    transition: background-image 2s ease-in-out;
   }
 
-  /* Click to Enter Overlay */
+  /* Background */
+  body {
+    background: url('background.jpg') center/cover no-repeat fixed;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Click-to-enter overlay */
   #overlay {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.9);
-    backdrop-filter: blur(10px);
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.8);
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-size: 2em;
-    font-weight: bold;
+    align-items: center;
+    z-index: 999;
     cursor: pointer;
-    z-index: 10;
-    text-shadow: 0 0 10px white, 0 0 20px white;
+    transition: opacity 1s ease;
   }
 
-  /* Main Content Hidden Initially */
-  #main-content {
+  #overlay.fade-out {
     opacity: 0;
-    transition: opacity 1.5s ease;
+    pointer-events: none;
+  }
+
+  #overlay h1 {
+    font-size: 3em;
+    color: white;
+    text-shadow: 0 0 10px cyan, 0 0 20px magenta;
+    animation: neon 1.5s infinite alternate;
+  }
+
+  @keyframes neon {
+    from { text-shadow: 0 0 5px cyan, 0 0 10px magenta; }
+    to { text-shadow: 0 0 20px cyan, 0 0 30px magenta; }
+  }
+
+  /* Main content container */
+  #main {
     position: relative;
-    z-index: 1;
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    color: white;
   }
 
   /* Banner */
   .banner {
     width: 100%;
-    height: 150px;
+    max-height: 180px;
     object-fit: cover;
-    display: block;
-    transition: opacity 1.5s ease;
+    border-radius: 10px;
+    margin-bottom: -60px;
+    opacity: 0;
+    animation: bannerFade 1.5s forwards;
+  }
+
+  @keyframes bannerFade {
+    to { opacity: 1; }
   }
 
   /* Profile Picture */
@@ -57,128 +89,96 @@
     border-radius: 50%;
     border: 4px solid white;
     object-fit: cover;
-    margin-top: -60px;
-    background-color: black;
+    margin-bottom: 10px;
     position: relative;
   }
 
-  /* Speech Bubble */
+  /* Speech bubble */
   .speech-bubble {
     position: absolute;
-    top: -70px;
-    left: 60%; /* slightly to the right of the pfp */
-    transform: translateX(-50%);
+    top: 30px;
+    left: 140px; /* slightly right of profile pic */
     background: rgba(0,0,0,0.7);
-    padding: 10px 15px;
-    border-radius: 20px;
-    font-size: 0.9em;
-    font-weight: bold;
-    text-shadow: 0 0 5px white;
+    padding: 8px 12px;
+    border-radius: 25px;
     color: white;
+    font-size: 0.9em;
+    max-width: 150px;
+    pointer-events: none;
   }
+
   .speech-bubble::after {
     content: '';
     position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 10px 10px 0 10px;
+    top: 50%;
+    left: -10px;
+    transform: translateY(-50%);
+    border-width: 5px;
     border-style: solid;
-    border-color: rgba(0,0,0,0.7) transparent transparent transparent;
+    border-color: transparent rgba(0,0,0,0.7) transparent transparent;
   }
 
-  h1 {
+  /* Name */
+  h1.name {
     font-size: 2em;
-    margin: 10px 0 5px;
-    text-shadow: 0 0 10px white, 0 0 20px white;
+    margin: 10px 0;
+    text-shadow: 0 0 5px cyan, 0 0 10px magenta;
   }
 
-  p {
-    font-size: 1em;
-    max-width: 500px;
-    margin: auto;
-    font-style: italic;
-    padding: 0 10px;
-    font-weight: bold;
-  }
-
-  /* Quote Carousel */
+  /* Quote carousel */
   #quote {
     font-style: italic;
     font-weight: bold;
-    margin: 20px auto;
     max-width: 600px;
-    text-shadow: 0 0 10px white, 0 0 20px white;
+    margin: 15px auto;
+    transition: opacity 1s ease;
+    min-height: 50px;
   }
 
-  /* Social Links */
+  /* Social links */
   .links {
     margin-top: 20px;
     display: flex;
     justify-content: center;
     gap: 20px;
   }
-
   .links a {
     display: inline-block;
     width: 50px;
     height: 50px;
   }
-
   .links img {
     width: 100%;
     height: 100%;
     filter: brightness(0) invert(1) drop-shadow(0 0 5px white);
     transition: transform 0.2s ease;
   }
-
   .links img:hover {
     transform: scale(1.1);
   }
 
-  /* Particles */
-  .particle {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: float 10s linear infinite;
-  }
-
-  @keyframes float {
-    0% { transform: translateY(0) translateX(0); opacity: 0.8;}
-    50% { opacity: 0.2; }
-    100% { transform: translateY(-800px) translateX(50px); opacity: 0; }
-  }
 </style>
 </head>
 <body>
 
-<!-- Click to Enter Overlay -->
-<div id="overlay" onclick="enterSite()">
-  Click here to enter...
+<!-- Click to enter overlay -->
+<div id="overlay">
+  <h1>Click here to enter...</h1>
 </div>
 
-<!-- Main Content -->
-<div id="main-content">
-  <!-- Banner -->
-  <img class="banner" src="./22789f623ea02b1a237a695be7bc0c81.jpg" alt="Banner" />
-
-  <!-- Profile Picture with Speech Bubble -->
-  <div style="position: relative; display: inline-block;">
-    <img class="profile-pic" src="./84cef277baee327f503bbb277bab8386-1.png" alt="Profile Picture" />
+<!-- Main content -->
+<div id="main">
+  <img class="banner" src="22789f623ea02b1a237a695be7bc0c81.jpg" alt="Banner">
+  
+  <div style="position: relative;">
+    <img class="profile-pic" src="84cef277baee327f503bbb277bab8386-1.png" alt="Profile Picture">
     <div class="speech-bubble">I'm a female</div>
   </div>
 
-  <!-- Name -->
-  <h1>goooddinosaur</h1>
+  <h1 class="name">goooddinosaur</h1>
 
-  <!-- Quote Carousel -->
-  <div id="quote">Loading...</div>
+  <div id="quote"></div>
 
-  <!-- Social Links -->
   <div class="links">
     <a href="https://www.roblox.com/users/560006886/profile" target="_blank" rel="noopener">
       <img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Roblox" />
@@ -190,55 +190,48 @@
       <img src="https://cdn.simpleicons.org/spotify/ffffff" alt="Spotify" />
     </a>
   </div>
+
+  <!-- Background music -->
+  <audio id="bg-music" src="background.mp3" autoplay loop></audio>
 </div>
 
 <script>
-// Click to Enter
-function enterSite() {
+  // Click-to-enter functionality
   const overlay = document.getElementById('overlay');
-  const mainContent = document.getElementById('main-content');
-  overlay.style.transition = "opacity 1s ease";
-  overlay.style.opacity = 0;
-  setTimeout(() => { overlay.style.display = "none"; }, 1000);
-  mainContent.style.opacity = 1;
-}
+  const main = document.getElementById('main');
+  overlay.addEventListener('click', () => {
+    overlay.classList.add('fade-out');
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      main.style.display = 'flex';
+      document.getElementById('bg-music').play().catch(()=>{}); // autoplay fallback
+    }, 1000);
+  });
 
-// Quote Carousel
-const quotes = [
-  "“Talk less. Smile more.” – Aaron Burr",
-  "“History has its eyes on you.” – George Washington",
-  "“Legacy. What is a legacy? It’s planting seeds in a garden you never get to see.” – Alexander Hamilton",
-  "“Death doesn’t discriminate between the sinners and the saints, it takes and it takes and it takes.” – Aaron Burr",
-  "“Rise up. When you’re living on your knees, you rise up.” – Ensemble"
-];
-let i = 0;
-function showQuote() {
-  document.getElementById('quote').innerText = quotes[i];
-  i = (i + 1) % quotes.length;
-}
-showQuote();
-setInterval(showQuote, 5000);
+  // Quote carousel
+  const quotes = [
+    "“Talk less. Smile more.” – Aaron Burr",
+    "“History has its eyes on you.” – George Washington",
+    "“Legacy. What is a legacy? It’s planting seeds in a garden you never get to see.” – Alexander Hamilton",
+    "“Death doesn’t discriminate between the sinners and the saints, it takes and it takes and it takes.” – Aaron Burr",
+    "“Rise up. When you’re living on your knees, you rise up.” – Ensemble"
+  ];
 
-// Floating Particles
-for (let j = 0; j < 50; j++) {
-  const particle = document.createElement('div');
-  particle.className = 'particle';
-  particle.style.left = Math.random() * window.innerWidth + 'px';
-  particle.style.top = Math.random() * window.innerHeight + 'px';
-  particle.style.animationDelay = Math.random() * 10 + 's';
-  particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
-  document.body.appendChild(particle);
-}
+  const quoteDiv = document.getElementById('quote');
+  let index = 0;
 
-// Background Fader
-const backgrounds = ['background1.jpg','background2.jpg','background3.jpg'];
-let bgIndex = 0;
-setInterval(() => {
-  bgIndex = (bgIndex + 1) % backgrounds.length;
-  document.body.style.backgroundImage = `url('${backgrounds[bgIndex]}')`;
-}, 7500);
+  function showQuote() {
+    quoteDiv.style.opacity = 0;
+    setTimeout(() => {
+      quoteDiv.textContent = quotes[index];
+      quoteDiv.style.opacity = 1;
+      index = (index + 1) % quotes.length;
+    }, 1000);
+  }
+
+  showQuote();
+  setInterval(showQuote, 7500);
 
 </script>
-
 </body>
 </html>
