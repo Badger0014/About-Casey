@@ -18,7 +18,7 @@
     background-color: black;
   }
 
-  /* Blurred background */
+  /* Blurry background */
   #blur-bg {
     position: fixed;
     top: 0;
@@ -33,7 +33,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: blur(40px) brightness(0.2);
+    filter: blur(50px) brightness(0.2);
     transform: scale(1.1);
   }
 
@@ -79,6 +79,14 @@
     align-items: center;
   }
 
+  /* Banner */
+  .banner {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+  }
+
+  /* Profile Picture */
   .profile-pic {
     width: 120px;
     height: 120px;
@@ -145,6 +153,9 @@
 
 <!-- Main Content -->
 <div id="content">
+  <!-- Banner -->
+  <img class="banner" src="./22789f623ea02b1a237a695be7bc0c81.jpg" alt="Banner" />
+
   <!-- Profile Picture -->
   <img class="profile-pic" src="./84cef277baee327f503bbb277bab8386-1.png" alt="Profile Picture" />
 
@@ -169,7 +180,7 @@
 </div>
 
 <!-- Background Music -->
-<audio id="bg-audio" src="./background.mp3" autoplay loop></audio>
+<audio id="bg-audio" src="./background.mp3" loop></audio>
 
 <script>
   const overlay = document.getElementById('overlay');
@@ -181,7 +192,7 @@
     setTimeout(() => { overlay.style.display = 'none'; }, 800);
     content.style.opacity = 1;
 
-    // Play audio on click for mobile autoplay restrictions
+    // Play audio on click (needed for mobile)
     audio.play().catch(err => console.log(err));
   });
 </script>
