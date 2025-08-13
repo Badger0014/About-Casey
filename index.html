@@ -12,6 +12,8 @@
     color: white;
     text-align: center;
     overflow-x: hidden;
+    opacity: 0;
+    transition: opacity 2s ease; /* fade in effect */
   }
 
   /* Banner */
@@ -89,23 +91,12 @@
 <body>
 
 <!-- Overlay to start audio -->
-<div id="overlay">Click anywhere to play music</div>
+<div id="overlay">Click anywhere</div>
 
-<!-- Background Music (hidden) -->
-<audio id="bg-audio" loop hidden>
-  <source src="./Screen_Recording_20250812_231533_YouTube Music.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-
-<script>
-  const overlay = document.getElementById('overlay');
-  const audio = document.getElementById('bg-audio');
-
-  overlay.addEventListener('click', () => {
-    audio.play().catch(err => console.log("Audio play blocked:", err));
-    overlay.style.display = 'none'; // remove overlay
-  });
-</script>
+<!-- Background Music -->
+<audio id="bg-audio" loop>
+  <source src="./background.mp3" type="audio/mpeg">
+  </audio>
 
 <!-- Banner -->
 <img class="banner" src="./22789f623ea02b1a237a695be7bc0c81.jpg" alt="Banner" />
@@ -131,6 +122,18 @@
     <img src="https://cdn.simpleicons.org/spotify/ffffff" alt="Spotify" />
   </a>
 </div>
+
+<script>
+  const overlay = document.getElementById('overlay');
+  const audio = document.getElementById('bg-audio');
+  const body = document.body;
+
+  overlay.addEventListener('click', () => {
+    audio.play().catch(err => console.log("Audio play blocked:", err));
+    overlay.style.display = 'none';
+    body.style.opacity = 1; // fade in the website
+  });
+</script>
 
 </body>
 </html>
