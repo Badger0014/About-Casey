@@ -8,11 +8,12 @@
   body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: url('background.jpg') no-repeat center center fixed;
+    background: url('background1.jpg') no-repeat center center fixed;
     background-size: cover;
     color: white;
     text-align: center;
     overflow: hidden;
+    transition: background-image 2s ease-in-out;
   }
 
   /* Click to Enter Overlay */
@@ -65,7 +66,7 @@
   .speech-bubble {
     position: absolute;
     top: -70px;
-    left: 50%;
+    left: 60%; /* slightly to the right of the pfp */
     transform: translateX(-50%);
     background: rgba(0,0,0,0.7);
     padding: 10px 15px;
@@ -151,7 +152,6 @@
     50% { opacity: 0.2; }
     100% { transform: translateY(-800px) translateX(50px); opacity: 0; }
   }
-
 </style>
 </head>
 <body>
@@ -229,6 +229,15 @@ for (let j = 0; j < 50; j++) {
   particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
   document.body.appendChild(particle);
 }
+
+// Background Fader
+const backgrounds = ['background1.jpg','background2.jpg','background3.jpg'];
+let bgIndex = 0;
+setInterval(() => {
+  bgIndex = (bgIndex + 1) % backgrounds.length;
+  document.body.style.backgroundImage = `url('${backgrounds[bgIndex]}')`;
+}, 7500);
+
 </script>
 
 </body>
