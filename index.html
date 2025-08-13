@@ -12,8 +12,6 @@
     color: white;
     text-align: center;
     transition: filter 1s ease, opacity 1s ease;
-    filter: blur(10px); /* start blurred */
-    opacity: 0.8;
   }
 
   /* Banner */
@@ -77,6 +75,8 @@
     left: 0;
     width: 100%;
     height: 100%;
+    background: rgba(0,0,0,0.4); /* dark semi-transparent layer */
+    backdrop-filter: blur(20px); /* heavy blur */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,19 +84,19 @@
     font-weight: bold;
     cursor: pointer;
     z-index: 10000;
-    color: #00ffff; /* neon cyan */
+    color: #ffffff; /* white neon */
     text-shadow:
-      0 0 5px #00ffff,
-      0 0 10px #00ffff,
-      0 0 20px #00ffff,
-      0 0 40px #00ffff,
-      0 0 80px #00ffff;
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 40px #0ff,
+      0 0 80px #0ff;
     animation: glow 1.5s infinite alternate;
   }
 
   @keyframes glow {
-    0% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff; }
-    100% { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff, 0 0 80px #00ffff; }
+    0% { text-shadow: 0 0 10px #fff, 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff; }
+    100% { text-shadow: 0 0 20px #fff, 0 0 40px #0ff, 0 0 60px #0ff, 0 0 80px #0ff; }
   }
 </style>
 </head>
@@ -104,7 +104,7 @@
 
 <!-- Background Music -->
 <audio id="bg-audio" loop>
-  <source src="./background.mp3" type="audio/mpeg">
+  <source src="./Screen_Recording_20250812_231533_YouTube Music.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 
@@ -136,8 +136,7 @@
   overlay.addEventListener('click', () => {
     audio.play().catch(err => console.log("Audio play blocked:", err));
     overlay.style.display = 'none';
-    body.style.filter = 'blur(0)'; // remove blur
-    body.style.opacity = 1;
+    body.style.filter = 'none'; // remove any blur
   });
 </script>
 
