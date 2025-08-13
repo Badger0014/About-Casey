@@ -1,240 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>About Me</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html, body {
-    height: 100%;
+  /* Basic Styles */
+  body {
+    margin: 0;
     font-family: Arial, sans-serif;
-    overflow: hidden;
+    background: url('background.jpg') center/cover no-repeat;
+    filter: blur(2px);
     color: white;
+    text-align: center;
+    overflow-x: hidden;
   }
 
-  /* Background with slight blur */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: url('background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    filter: blur(3px); /* subtle blur */
-    z-index: -1;
+  /* Banner */
+  .banner {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
   }
 
-  /* Click-to-enter overlay */
+  /* Profile Picture */
+  .profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    object-fit: cover;
+    margin: -60px auto 10px auto;
+    display: block;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Quotes */
+  .quote {
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 20px auto;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  .quote.active {
+    opacity: 1;
+  }
+
+  /* Social Links Box */
+  .links-box {
+    display: inline-block;
+    background-color: rgba(0,0,0,0.6);
+    padding: 10px 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+  }
+
+  .links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .links a {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+  }
+
+  .links img {
+    width: 100%;
+    height: 100%;
+    filter: brightness(0) invert(1) drop-shadow(0 0 10px #fff);
+    transition: transform 0.2s ease;
+  }
+
+  .links img:hover {
+    transform: scale(1.1);
+  }
+
+  /* Click to Enter Screen */
   #enterScreen {
     position: fixed;
     top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.95);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
     display: flex;
-    justify-content: center;
     align-items: center;
-    z-index: 10;
+    justify-content: center;
     cursor: pointer;
-    opacity: 1;
-    transition: opacity 1s ease;
+    z-index: 1000;
   }
 
   #enterScreen h2 {
     color: white;
     font-size: 3em;
     text-shadow: 0 0 10px #fff, 0 0 20px #fff;
-    animation: neon 1.5s ease-in-out infinite alternate;
-    text-align: center;
-  }
-
-  @keyframes neon {
-    0% { text-shadow: 0 0 5px #fff, 0 0 10px #fff; }
-    100% { text-shadow: 0 0 20px #fff, 0 0 40px #fff; }
-  }
-
-  /* Banner */
-  .banner {
-    width: 100%;
-    max-height: 180px;
-    object-fit: cover;
-    display: block;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Main container */
-  #mainContent {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    margin-top: -60px;
-  }
-
-  /* Profile picture */
-  .profile-pic {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 4px solid white;
-    object-fit: cover;
-    display: block;
-    margin: auto;
-    position: relative;
-    z-index: 3;
-  }
-
-  /* Speech bubble */
-  .speech-bubble {
-    position: relative;
-    display: inline-block;
-    background: rgba(0,0,0,0.7);
-    padding: 10px 15px;
-    border-radius: 20px;
-    color: white;
-    margin-top: 10px;
-    font-size: 0.9em;
-    margin-left: 10px;
-    text-align: center;
-  }
-  .speech-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: 100%;
-    left: 15px;
-    border-width: 10px;
-    border-style: solid;
-    border-color: transparent transparent rgba(0,0,0,0.7) transparent;
-  }
-
-  /* Box for icons and carousel */
-  .box {
-    display: inline-block;
-    background: rgba(0,0,0,0.7);
-    padding: 20px;
-    border-radius: 15px;
-    margin-top: 20px;
-    text-align: center;
-  }
-
-  .links {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 15px;
-  }
-  .links a img {
-    width: 40px;
-    height: 40px;
-    filter: brightness(1.5) drop-shadow(0 0 10px #fff);
-    transition: transform 0.3s;
-  }
-  .links a img:hover {
-    transform: scale(1.2);
-  }
-
-  /* Quote carousel */
-  .quote {
-    font-style: italic;
-    font-weight: bold;
-    max-width: 400px;
-    margin: auto;
-    transition: opacity 1s ease-in-out;
-    text-align: center;
   }
 </style>
 </head>
 <body>
 
-<!-- Click to enter overlay -->
+<!-- Audio -->
+<audio id="bgMusic" src="background.mp3" loop></audio>
+
+<!-- Click to Enter Screen -->
 <div id="enterScreen">
-  <h1>Click here to enter...</h1>
+  <h2>Click here to enter...</h2>
 </div>
 
 <!-- Banner -->
-<img class="banner" src="22789f623ea02b1a237a695be7bc0c81.jpg" alt="Banner">
+<img class="banner" src="22789f623ea02b1a237a695be7bc0c81.jpg" alt="Banner" />
 
-<!-- Main Content -->
-<div id="mainContent">
-  <img class="profile-pic" src="84cef277baee327f503bbb277bab8386-1.png" alt="Profile Picture">
-  <div class="speech-bubble">I'm a female</div>
+<!-- Profile Picture -->
+<img class="profile-pic" src="84cef277baee327f503bbb277bab8386-1.png" alt="Profile Picture" />
 
-  <div class="box">
-    <div class="links">
-      <a href="https://www.roblox.com/users/560006886/profile" target="_blank">
-        <img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Roblox">
-      </a>
-      <a href="https://www.tiktok.com/@goooddinosaur" target="_blank">
-        <img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="TikTok">
-      </a>
-      <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" target="_blank">
-        <img src="https://cdn.simpleicons.org/spotify/ffffff" alt="Spotify">
-      </a>
-    </div>
+<!-- Quote Carousel -->
+<div class="quote" id="quote1">“Talk less. Smile more.” – Aaron Burr</div>
+<div class="quote" id="quote2">“History has its eyes on you.” – George Washington</div>
+<div class="quote" id="quote3">“Legacy. What is a legacy? It’s planting seeds in a garden you never get to see.” – Alexander Hamilton</div>
+<div class="quote" id="quote4">“Death doesn’t discriminate between the sinners and the saints, it takes and it takes and it takes.” – Aaron Burr</div>
+<div class="quote" id="quote5">“Rise up. When you’re living on your knees, you rise up.” – Ensemble</div>
 
-    <div id="quoteCarousel" class="quote"></div>
+<!-- Social Links Box -->
+<div class="links-box">
+  <div class="links">
+    <a href="https://www.roblox.com/users/560006886/profile" target="_blank" rel="noopener">
+      <img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Roblox" />
+    </a>
+    <a href="https://www.tiktok.com/@goooddinosaur" target="_blank" rel="noopener">
+      <img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="TikTok" />
+    </a>
+    <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" target="_blank" rel="noopener">
+      <img src="https://cdn.simpleicons.org/spotify/ffffff" alt="Spotify" />
+    </a>
   </div>
 </div>
 
-<!-- Audio -->
-<audio id="bgAudio" src="background.mp3" autoplay loop></audio>
-
 <script>
-  // Click to enter with fade
-  const enterScreen = document.getElementById('enterScreen');
-  enterScreen.addEventListener('click', () => {
-    enterScreen.style.opacity = 0;
-    setTimeout(() => {
-      enterScreen.style.display = 'none';
-    }, 1000);
-  });
-
-  // Quote carousel
-  const quotes = [
-    "“Talk less. Smile more.” – Aaron Burr",
-    "“History has its eyes on you.” – George Washington",
-    "“Legacy. What is a legacy? It’s planting seeds in a garden you never get to see.” – Alexander Hamilton",
-    "“Death doesn’t discriminate between the sinners and the saints, it takes and it takes and it takes.” – Aaron Burr",
-    "“Rise up. When you’re living on your knees, you rise up.” – Ensemble"
-  ];
-
-  const quoteElement = document.getElementById('quoteCarousel');
-  let currentQuote = 0;
-  quoteElement.textContent = quotes[currentQuote];
-  setInterval(() => {
-    quoteElement.style.opacity = 0;
-    setTimeout(() => {
-      currentQuote = (currentQuote + 1) % quotes.length;
-      quoteElement.textContent = quotes[currentQuote];
-      quoteElement.style.opacity = 1;
-    }, 1000);
-  }, 7500);
-</script>
-</script>
-<!-- Place this inside the <body> -->
-
-<!-- Audio element (hidden) -->
-<audio id="bgMusic" src="background.mp3" loop></audio>
-
-<!-- Click to enter screen -->
-<div id="enterScreen" style="position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:1000;">
-  <h1 style="color:white; font-size:3em; text-shadow: 0 0 10px #fff, 0 0 20px #fff;">Click here to enter...</h1>
-</div>
-
-<script>
+  // Click to Enter
   const enterScreen = document.getElementById('enterScreen');
   const bgMusic = document.getElementById('bgMusic');
 
   enterScreen.addEventListener('click', () => {
-    // Hide the click-to-enter screen
     enterScreen.style.display = 'none';
-
-    // Play the background music
-    bgMusic.play().catch(e => {
-      console.log("Autoplay blocked. User interaction required.");
-    });
+    bgMusic.play().catch(e => {console.log("Autoplay blocked.");});
   });
+
+  // Quote Carousel
+  const quotes = document.querySelectorAll('.quote');
+  let current = 0;
+  quotes[current].classList.add('active');
+
+  setInterval(() => {
+    quotes[current].classList.remove('active');
+    current = (current + 1) % quotes.length;
+    quotes[current].classList.add('active');
+  }, 7500); // 7.5 seconds per quote
 </script>
 
 </body>
