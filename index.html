@@ -11,7 +11,12 @@
     background-color: black;
     color: white;
     text-align: center;
-    transition: filter 1s ease, opacity 1s ease;
+  }
+
+  /* Container for content that will be blurred */
+  #content {
+    filter: blur(15px);
+    transition: filter 0.8s ease;
   }
 
   /* Banner */
@@ -75,8 +80,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.4); /* dark semi-transparent layer */
-    backdrop-filter: blur(20px); /* heavy blur */
+    background: rgba(0,0,0,0.3); /* semi-transparent black */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -88,12 +92,11 @@
     text-shadow:
       0 0 5px #fff,
       0 0 10px #fff,
-      0 0 20px #fff,
-      0 0 40px #0ff,
-      0 0 80px #0ff;
+      0 0 20px #0ff,
+      0 0 40px #0ff;
     animation: glow 1.5s infinite alternate;
     opacity: 1;
-    transition: opacity 1s ease;
+    transition: opacity 0.8s ease;
   }
 
   @keyframes glow {
@@ -101,18 +104,13 @@
     100% { text-shadow: 0 0 20px #fff, 0 0 40px #0ff, 0 0 60px #0ff, 0 0 80px #0ff; }
   }
 
-  /* Hidden blur before entering */
-  .blurred {
-    filter: blur(20px);
-    transition: filter 1s ease;
-  }
 </style>
 </head>
-<body class="blurred">
+<body>
 
 <!-- Background Music -->
 <audio id="bg-audio" loop>
-  <source src="./Screen_Recording_20250812_231533_YouTube Music.mp3" type="audio/mpeg">
+  <source src="./background.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 
@@ -120,26 +118,28 @@
 <div id="overlay">Click here to enter...</div>
 
 <!-- Page Content -->
-<img class="banner" src="./22789f623ea02b1a237a695be7bc0c81.jpg" alt="Banner">
-<img class="profile-pic" src="./84cef277baee327f503bbb277bab8386-1.png" alt="Profile Picture">
-<h1>goooddinosaur</h1>
-<p>"Legacy. What is a Legacy? It’s planting seeds in a garden you never get to see."<br>— Alexander Hamilton</p>
-<div class="links">
-  <a href="https://www.roblox.com/users/560006886/profile" target="_blank" rel="noopener">
-    <img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Roblox">
-  </a>
-  <a href="https://www.tiktok.com/@goooddinosaur" target="_blank" rel="noopener">
-    <img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="TikTok">
-  </a>
-  <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" target="_blank" rel="noopener">
-    <img src="https://cdn.simpleicons.org/spotify/ffffff" alt="Spotify">
-  </a>
+<div id="content">
+  <img class="banner" src="./22789f623ea02b1a237a695be7bc0c81.jpg" alt="Banner">
+  <img class="profile-pic" src="./84cef277baee327f503bbb277bab8386-1.png" alt="Profile Picture">
+  <h1>goooddinosaur</h1>
+  <p>"Legacy. What is a Legacy? It’s planting seeds in a garden you never get to see."<br>— Alexander Hamilton</p>
+  <div class="links">
+    <a href="https://www.roblox.com/users/560006886/profile" target="_blank" rel="noopener">
+      <img src="https://cdn.simpleicons.org/roblox/ffffff" alt="Roblox">
+    </a>
+    <a href="https://www.tiktok.com/@goooddinosaur" target="_blank" rel="noopener">
+      <img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="TikTok">
+    </a>
+    <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" target="_blank" rel="noopener">
+      <img src="https://cdn.simpleicons.org/spotify/ffffff" alt="Spotify">
+    </a>
+  </div>
 </div>
 
 <script>
   const overlay = document.getElementById('overlay');
   const audio = document.getElementById('bg-audio');
-  const body = document.body;
+  const content = document.getElementById('content');
 
   overlay.addEventListener('click', () => {
     // Play audio
@@ -147,12 +147,10 @@
 
     // Fade out overlay
     overlay.style.opacity = '0';
-    setTimeout(() => {
-      overlay.style.display = 'none';
-    }, 1000);
+    setTimeout(() => overlay.style.display = 'none', 800);
 
-    // Remove blur smoothly
-    body.classList.remove('blurred');
+    // Remove blur from content
+    content.style.filter = 'blur(0)';
   });
 </script>
 
