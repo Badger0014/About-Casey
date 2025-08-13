@@ -8,17 +8,15 @@
   body {
     margin: 0;
     font-family: Arial, sans-serif;
-    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     overflow: hidden;
     text-align: center;
-    background-color: black;
   }
 
-  /* Blurry background */
+  /* Blurry background image */
   #blur-bg {
     position: fixed;
     top: 0;
@@ -33,11 +31,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: blur(50px) brightness(0.2);
+    filter: blur(60px) brightness(0.2);
     transform: scale(1.1);
   }
 
-  /* Overlay entrance text */
+  /* Overlay entrance */
   #overlay {
     position: fixed;
     top: 0;
@@ -97,17 +95,32 @@
     background-color: black;
   }
 
+  /* Shiny title */
   h1 {
     font-size: 2em;
     margin: 10px 0 5px;
+    background: linear-gradient(90deg, #00fff7, #ffffff, #00fff7);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 2s linear infinite;
   }
 
+  @keyframes shine {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Quote bold */
   p {
     font-size: 1em;
     max-width: 90vw;
     margin: auto;
+    font-weight: bold;
     font-style: italic;
     padding: 0 10px;
+    color: white;
+    text-shadow: 0 0 5px black;
   }
 
   .links {
@@ -149,7 +162,7 @@
 </div>
 
 <!-- Overlay entrance -->
-<div id="overlay">Click here to enter...</div>
+<div id="overlay">Click anywhere to enter...</div>
 
 <!-- Main Content -->
 <div id="content">
@@ -191,8 +204,6 @@
     overlay.style.opacity = 0;
     setTimeout(() => { overlay.style.display = 'none'; }, 800);
     content.style.opacity = 1;
-
-    // Play audio on click (needed for mobile)
     audio.play().catch(err => console.log(err));
   });
 </script>
