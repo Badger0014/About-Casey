@@ -11,7 +11,6 @@
     background: url('./22789f623ea02b1a237a695be7bc0c81.jpg') center/cover fixed no-repeat;
     color: white;
     text-align: center;
-    backdrop-filter: blur(12px);
     overflow-x: hidden;
   }
 
@@ -22,7 +21,7 @@
     z-index: -1;
   }
 
-  /* Intro overlay */
+  /* Intro overlay with blur */
   #overlay {
     position: fixed;
     inset: 0;
@@ -136,6 +135,25 @@
   .links img:hover {
     transform: scale(1.1);
   }
+
+  /* Viewer counter */
+  .viewer-counter {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1em;
+    background: rgba(0,0,0,0.5);
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+  .viewer-counter img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+  }
 </style>
 </head>
 <body>
@@ -177,6 +195,12 @@
   <a href="https://open.spotify.com/user/31cbhv3gg66spjjweortqjluhzfm" target="_blank" rel="noopener">
     <img src="https://cdn.simpleicons.org/spotify/ffffff" alt="Spotify" />
   </a>
+</div>
+
+<!-- Viewer Counter -->
+<div class="viewer-counter">
+  <img src="https://cdn.simpleicons.org/eye/ffffff" alt="Viewers" />
+  <span id="viewer-count">42</span>
 </div>
 
 <script>
